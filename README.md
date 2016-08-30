@@ -108,12 +108,13 @@ The following assumes you have already [set up Git](https://help.github.com/arti
 - Under your repository name, click **Clone or download**.  
 - In the Clone with HTTPs section, click the clipboard icon to copy the clone URL for the repository.  
 - Open Terminal.  
+- Ensure you are in your preferred parent directory.
 - Type git clone, and then paste the URL you copied . It will look like this, with your GitHub username instead of `YOUR-USERNAME`:
 
   ```
   $ git clone https://github.com/YOUR-USERNAME/relief-student
   ```
-- Press **Enter**. Your local clone will be created.
+- Press **Enter**. Your local clone will be created.  A new project directory named **relief-student** now exists.
 - Change to the project's directory
 
   ```
@@ -132,3 +133,7 @@ The following assumes you have already [set up Git](https://help.github.com/arti
   In Terminal, you should notice the following message:
 
   > You need to create a database and return database info.  Get Crackin'.  See [https://pouchdb.com/api.html](https://pouchdb.com/api.html)
+
+  If you see this message, congratulations!  Now, get crackin'!
+
+  
