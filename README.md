@@ -106,7 +106,7 @@ The following assumes you have already [set up Git](https://help.github.com/arti
   Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.  [More...](https://help.github.com/articles/fork-a-repo/)
 - On GitHub, navigate to **your fork** of the relief-student repository.
 - Under your repository name, click **Clone or download**.  
-- In the Clone with HTTPs section, click the clipboard to copy the clone URL for the repository.  
+- In the Clone with HTTPs section, click the clipboard icon to copy the clone URL for the repository.  
 - Open Terminal.  
 - Type git clone, and then paste the URL you copied . It will look like this, with your GitHub username instead of `YOUR-USERNAME`:
 
