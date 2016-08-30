@@ -22,7 +22,6 @@ The following assumes you have [set up Git](https://help.github.com/articles/set
   $ git clone https://github.com/YOUR-USERNAME/relief-student
   ```
 - Press **Enter**. Your local clone will be created.
-
 - Change to the project's directory
 
   ```
