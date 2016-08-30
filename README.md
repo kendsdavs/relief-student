@@ -132,8 +132,6 @@ The following assumes you have already [set up Git](https://help.github.com/arti
   ```
   In Terminal, you should notice the following message:
 
-  > You need to create a database and return database info.  Get Crackin'.  See [https://pouchdb.com/api.html](https://pouchdb.com/api.html)
+  >  Success!
 
-  If you see this message, congratulations!  Now, get crackin'!
-
-  
+  If you see this message, congratulations!

@@ -21,5 +21,5 @@ var dal = {
 module.exports = dal;
 
 function getDBInfo() {
-    return "You need to create a database and return database info.  Get Crackin'.  See https://pouchdb.com/api.html"
+    return "Success!"
 }
