@@ -100,6 +100,7 @@ For more information on how to set up Atom, see [How to Set up Atom 1.0 with you
 The following assumes you have already [set up Git](https://help.github.com/articles/set-up-git/) on your laptop.  If not, do so now before continuing.
 
 - Fork the [relief-student](https://github.com/jrs-innovation-center/relief-student) repo.
+
   A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
 
   Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.  [More...](https://help.github.com/articles/fork-a-repo/)
