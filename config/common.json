@@ -1,0 +1,13 @@
+{
+  "couch": {
+    "baseURI": "http://127.0.0.1",
+    "port": 5984,
+    "dbName": "relief-tracker"
+  },
+  "mySQL": {
+    "host": "0.0.0.0",
+    "port": 3306,
+    "dbName": "relief_tracker"
+  },
+  "debug": true
+}
