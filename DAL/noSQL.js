@@ -21,5 +21,6 @@ var dal = {
 module.exports = dal;
 
 function getDBInfo() {
+    // TODO:  Grab db info from database and return with success message
     return "Success!"
 }
