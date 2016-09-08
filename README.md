@@ -107,15 +107,15 @@ The following assumes you have already [set up Git](https://help.github.com/arti
 - On GitHub, navigate to **your fork** of the relief-student repository.
 - Under your repository name, click **Clone or download**.  
 - In the Clone with HTTPs section, click the clipboard icon to copy the clone URL for the repository.  
-- Open Terminal.  
-- Ensure you are in your preferred parent directory.
-- Type git clone, and then paste the URL you copied . It will look like this, with your GitHub username instead of `YOUR-USERNAME`:
+- Open Terminal (Mac OSX) or Command Prompt (Windows).  
+- Ensure you are in your preferred parent directory using the `cd` command.
+- Type `git clone`, and then paste the URL you copied . It will look like this, with your GitHub username instead of `YOUR-USERNAME`:
 
   ```
   $ git clone https://github.com/YOUR-USERNAME/relief-student
   ```
-- Press **Enter**. Your local clone will be created.  A new project directory named **relief-student** now exists.
-- Change to the project's directory
+- Press **Enter**. Your local clone will be created.  A new project directory named **relief-student** now exists on your computer.
+- Using Terminal/Command Prompt, Change to the project's directory
 
   ```
   $ cd relief-student
