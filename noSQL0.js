@@ -53,40 +53,9 @@ function createPerson(data, callback) {
     }
 }
 
-
-function createReliefEffort(data, callback) {
-    // Call to couch retrieving a document with the given _id value.
-    if (typeof data == "undefined" || data === null) {
-        return callback(new Error('Missing data for create'));
-    // } else if (data.hasOwnProperty('_id') === true) {
-    //     return callback(new Error('Unnecessary _id property within data. ' +
-    //         'createPerson() will generate a unique _id'));
-    } else if (data.hasOwnProperty('_rev') === true) {
-        return callback(new Error('Unnecessary _rev property within data'));
-    } else if (data.hasOwnProperty('phase') !== true) {
-        return callback(new Error('Missing phase property within data'));
-    } else if (data.hasOwnProperty('name') !== true) {
-       return callback(new Error('Missing name property within data'));
-    } else if (data.hasOwnProperty('organizationID') !== true) {
-        return callback(new Error('Missing organizationID property within data'));
-    } else {
-        if (data.hasOwnProperty('active') !== true) {
-            data.active = true;
-        }
-        data.type = 'relief';
-        data._id = 'relief_' + data.organizationID.replace(/ /g, "_").replace(/\./g, "") + '_' + data.name.replace(/ /g, "_");
-
-        db.put(data, function(err, response) {
-            if (err) return callback(err);
-            if (response) return callback(null, response);
-        });
-    }
-}
-
 var dal = {
     getDBInfo: getDBInfo,
-    createPerson: createPerson,
-    createReliefEffort: createReliefEffort
+    createPerson: createPerson
 };
 
 module.exports = dal;

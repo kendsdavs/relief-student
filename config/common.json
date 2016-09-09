@@ -2,12 +2,12 @@
   "couch": {
     "baseURI": "http://127.0.0.1",
     "port": 5984,
-    "dbName": "relief-tracker"
+    "dbName": "relief-student"
   },
   "mySQL": {
     "host": "0.0.0.0",
     "port": 3306,
-    "dbName": "relief_tracker"
+    "dbName": "relief_student"
   },
   "debug": true
 }
