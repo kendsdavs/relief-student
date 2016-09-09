@@ -9,15 +9,17 @@
 
 const dalNoSQL = require('./DAL/noSQL.js');
 
-const createReliefEffortDataKatrina = {
+const createReliefEffortDataHugo = {
     "phase": "completed",
-    "name": "Hurricane Katrina 2005",
+    "name": "Hurricane Hugo 1989",
     "organizationID": "Hurricane Helpers",
-    "desc": "Provide water purification systems. Hurricane Katrina was the eleventh named storm and fifth hurricane of the 2005 Atlantic hurricane season. It was the costliest natural disaster, as well as one of the five deadliest hurricanes, in the history of the United States.",
-    "start": "2005-08-23",
-    "end": "2005-09-31",
+    "desc": "Purricane Hugo was a powerful Cape Verde-type hurricane that caused widespread damage and loss of life in the Leeward Islands, Puerto Rico, and the Southeast United States in 1989",
+    "start": "1989-09-10",
+    "end": "1989-09-25",
     "active": true
 };
+
+
 
 const createReliefEffortDataHaiti2015 = {
     "_id": "relief_St_Phillips_Haiti_2015",

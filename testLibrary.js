@@ -30,10 +30,10 @@ function removeDoc(data) {
 function missingPersonDataTest(data, withOrWithout, test, number, remove) {
     dalNoSQL.createPerson(data, function callback(err, response) {
         if (err) {
-            console.log("Test #", number, ": Success --> createPerson() prevented me from adding a person ", withOrWithout, test,  ". Message: ", err.message);
+            console.log("Test #", number, ": Success --> createPerson() prevented me from adding a person ", withOrWithout, test, ". Message: ", err.message);
         }
         if (response && response.ok === true) {
-            console.log("Test #",number, ": Fail --> createPerson() allowed me to add ", response.id ," to the database ", withOrWithout, test);
+            console.log("Test #", number, ": Fail --> createPerson() allowed me to add ", response.id, " to the database ", withOrWithout, test);
             if (remove) {
                 removeDoc(response);
             }
@@ -44,10 +44,10 @@ function missingPersonDataTest(data, withOrWithout, test, number, remove) {
 function AddPersonTest(data, number, remove) {
     dalNoSQL.createPerson(data, function callback(err, response) {
         if (err) {
-            console.log("Test #",number, ": Fail --> createPerson() did not add person to the database.", data);
+            console.log("Test #", number, ": Fail --> createPerson() did not add person to the database.", data);
         }
         if (response && response.ok === true) {
-            console.log("Test #",number, ": Success --> createPerson() allowed me to add ", response.id ," to the database. ");
+            console.log("Test #", number, ": Success --> createPerson() allowed me to add ", response.id, " to the database. ");
             if (remove) {
                 removeDoc(response);
             }
@@ -58,10 +58,10 @@ function AddPersonTest(data, number, remove) {
 function missingReliefEffortDataTest(data, withOrWithout, test, number, remove) {
     dalNoSQL.createReliefEffort(data, function callback(err, response) {
         if (err) {
-            console.log("Test #", number, ": Success --> createReliefEffort() prevented me from adding a relief effort ", withOrWithout, test,  ". Message: ", err.message);
+            console.log("Test #", number, ": Success --> createReliefEffort() prevented me from adding a relief effort ", withOrWithout, test, ". Message: ", err.message);
         }
         if (response && response.ok === true) {
-            console.log("Test #",number, ": Fail --> createReliefEffort() allowed me to add ", response.id ," to the database ", withOrWithout, test);
+            console.log("Test #", number, ": Fail --> createReliefEffort() allowed me to add ", response.id, " to the database ", withOrWithout, test);
             if (remove) {
                 removeDoc(response);
             }
@@ -72,10 +72,10 @@ function missingReliefEffortDataTest(data, withOrWithout, test, number, remove) 
 function AddReliefEffortTest(data, number, remove) {
     dalNoSQL.createReliefEffort(data, function callback(err, response) {
         if (err) {
-            console.log("Test #",number, ": Fail --> createReliefEffort() did not add relief effort to the database.", data);
+            console.log("Test #", number, ": Fail --> createReliefEffort() did not add relief effort to the database.", data);
         }
         if (response && response.ok === true) {
-            console.log("Test #",number, ": Success --> createReliefEffort() allowed me to add ", response.id ," to the database. ");
+            console.log("Test #", number, ": Success --> createReliefEffort() allowed me to add ", response.id, " to the database. ");
             if (remove) {
                 removeDoc(response);
             }
@@ -83,6 +83,31 @@ function AddReliefEffortTest(data, number, remove) {
     });
 }
 
+function removeReliefEffortTest(data, number) {
+    dalNoSQL.deleteReliefEffort(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Fail --> deleteReliefEffort() was unable to delete the relief effort: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Success --> deleteReliefEffort() deleted the relief effort with an _id: ", data._id);
+        }
+    });
+}
+
+function missingReliefEffortDataRemoveTest(data, withOrWithout, test, number) {
+    dalNoSQL.deleteReliefEffort(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Success --> deleteReliefEffort() prevented me from adding a relief effort ", withOrWithout, test, ". Message: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Fail --> deleteReliefEffort() allowed me to delete ", response.id, " to the database ", withOrWithout, test);
+        }
+    });
+}
+
+//////////////////
+// Test Library
+//////////////////
 function createPerson() {
 
     const PersonWithMissingEmail = {
@@ -124,9 +149,9 @@ function createPerson() {
     };
 
     missingPersonDataTest(PersonWithMissingEmail, "without", "Email", 1, true);
-    missingPersonDataTest(PersonWithMissingFirst,  "without", "First Name", 2, true);
-    missingPersonDataTest(PersonWithMissingLast,  "without", "Last Name", 3, true);
-    missingPersonDataTest(PersonWith_id,  "with", "_id", 4, true);
+    missingPersonDataTest(PersonWithMissingFirst, "without", "First Name", 2, true);
+    missingPersonDataTest(PersonWithMissingLast, "without", "Last Name", 3, true);
+    missingPersonDataTest(PersonWith_id, "with", "_id", 4, true);
     AddPersonTest(PersonWithNoProblems, 5, true)
 }
 
@@ -180,17 +205,80 @@ function createReliefEffort() {
         "active": true
     };
 
+    const createReliefEffortDataKatrina = {
+        "phase": "completed",
+        "name": "Hurricane Katrina 2005",
+        "organizationID": "Hurricane Helpers",
+        "desc": "Provide water purification systems. Hurricane Katrina was the eleventh named storm and fifth hurricane of the 2005 Atlantic hurricane season. It was the costliest natural disaster, as well as one of the five deadliest hurricanes, in the history of the United States.",
+        "start": "2005-08-23",
+        "end": "2005-09-31",
+        "active": true
+    };
+
     missingReliefEffortDataTest(ReliefEffortWithMissingName, "without", "Name", 1, true);
-    missingReliefEffortDataTest(ReliefEffortWithMissingOrgID,  "without", "Organization ID", 2, true);
-    missingReliefEffortDataTest(ReliefEffortWithMissingPhase,  "without", "Phase", 3, true);
-    missingReliefEffortDataTest(ReliefEffortWith_id,  "with", "_id", 4, true);
+    missingReliefEffortDataTest(ReliefEffortWithMissingOrgID, "without", "Organization ID", 2, true);
+    missingReliefEffortDataTest(ReliefEffortWithMissingPhase, "without", "Phase", 3, true);
+    missingReliefEffortDataTest(ReliefEffortWith_id, "with", "_id", 4, true);
     AddReliefEffortTest(ReliefEffortNoProblems, 5, true);
 }
 
 
-var testLibrary= {
+function deleteReliefEffort() {
+
+    const reliefEfforts = [{
+        "phase": "completed",
+        "name": "Hurricane Camille 1968",
+        "organizationID": "Hurricane Helpers",
+        "desc": "Provide water purification systems. Hurricane Camille was a storm.",
+        "start": "2005-08-23",
+        "end": "2005-09-31",
+        "active": true
+    }, {
+        "phase": "completed",
+        "name": "Hurricane Katrina 2005",
+        "organizationID": "Hurricane Helpers",
+        "desc": "Provide water purification systems. Hurricane Katrina was the eleventh named storm and fifth hurricane of the 2005 Atlantic hurricane season. It was the costliest natural disaster, as well as one of the five deadliest hurricanes, in the history of the United States.",
+        "start": "2005-08-23",
+        "end": "2005-09-31",
+        "active": true
+    }];
+
+    db.bulkDocs(reliefEfforts, function(err, response) {
+        if (err) {
+            return console.log(err);
+        }
+        // handle result
+        if (response) {
+            //console.log(response)
+            missingReliefEffortDataRemoveTest({
+                //_id: response[0].id,
+                _rev: response[0].rev
+            }, "without", "_id", 1)
+            missingReliefEffortDataRemoveTest({
+                _id: response[0].id,
+                //_rev: response[0].rev
+            }, "without", "_rev", 2)
+            removeReliefEffortTest({
+                _id: response[0].id,
+                _rev: response[0].rev
+            }, 3)
+            removeReliefEffortTest({
+                _id: response[1].id,
+                _rev: response[1].rev
+            }, 4)
+        }
+    });
+
+}
+
+
+
+var testLibrary = {
     createPerson: createPerson,
-    createReliefEffort: createReliefEffort
+    createReliefEffort: createReliefEffort,
+    deleteReliefEffort: deleteReliefEffort
+    // ,
+    // deletePerson: deletePerson
 };
 
 module.exports = testLibrary;

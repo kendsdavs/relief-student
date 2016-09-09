@@ -20,9 +20,23 @@ function getDBInfo() {
     return "Success!";
 }
 
-// function createPerson(data, callback) {
-// }
-
+function deleteDoc(data, callback) {
+    if (typeof data == "undefined" || data === null) {
+        return callback(new Error('Missing data for delete'));
+    } else if (data.hasOwnProperty('_id') !== true) {
+        return callback(new Error('Missing _id property from data'));
+    } else if (data.hasOwnProperty('_rev') !== true) {
+        return callback(new Error('Missing _rev property from data'));
+    } else {
+        db.remove(data, function(err, response) {
+            if (err) return callback(err);
+            //  { ok: true,
+            //    id: 'person_SmithRobin7916e565-15c4-4061-b337-77a56367cbde',
+            //    rev: '7-677882ca4c14ace536dbdf536eb49e38' }
+            if (response) return callback(null, response);
+        });
+    }
+}
 
 function createPerson(data, callback) {
     // Call to couch retrieving a document with the given _id value.
@@ -83,10 +97,21 @@ function createReliefEffort(data, callback) {
     }
 }
 
+
+function deletePerson(data, callback) {
+    deleteDoc(data, callback);
+}
+
+function deleteReliefEffort(data, callback) {
+    deleteDoc(data, callback);
+}
+
 var dal = {
     getDBInfo: getDBInfo,
     createPerson: createPerson,
-    createReliefEffort: createReliefEffort
+    createReliefEffort: createReliefEffort,
+    deletePerson: deletePerson,
+    deleteReliefEffort: deleteReliefEffort
 };
 
 module.exports = dal;
