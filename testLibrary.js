@@ -16,7 +16,6 @@ const couch_dbname = config.get("couch.dbName");
 const db = new PouchDB(couch_base_uri + couch_dbname);
 
 function removeDoc(data) {
-
     var removeDoc = {
         _id: data.id,
         _rev: data.rev
@@ -41,6 +40,28 @@ function missingPersonDataTest(data, withOrWithout, test, number, remove) {
     });
 }
 
+function missingPersonDataRemoveTest(data, withOrWithout, test, number) {
+    dalNoSQL.deletePerson(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Success --> deletePerson() prevented me from deleting a person", withOrWithout, test, ". Message: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Fail --> deletePerson() allowed me to delete ", response.id, " from the database ", withOrWithout, test);
+        }
+    });
+}
+
+function missingPersonDataUpdateTest(data, withOrWithout, test, number) {
+    dalNoSQL.updatePerson(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Success --> updatePerson() prevented me from updating a person", withOrWithout, test, ". Message: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Fail --> updatePerson() allowed me to update ", response.id, " from the database ", withOrWithout, test);
+        }
+    });
+}
+
 function AddPersonTest(data, number, remove) {
     dalNoSQL.createPerson(data, function callback(err, response) {
         if (err) {
@@ -55,6 +76,38 @@ function AddPersonTest(data, number, remove) {
     });
 }
 
+function removePersonTest(data, number) {
+    dalNoSQL.deletePerson(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Fail --> deletePerson() was unable to delete the person: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Success --> deletePerson() deleted the person with an _id: ", data._id);
+        }
+    });
+}
+
+function updatePersonTest(data, number) {
+    dalNoSQL.updatePerson(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Fail --> updatePerson() was unable to update the person: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Success --> updatePerson() updated the person with an _id: ", data._id);
+            db.remove({
+                _id: response.id,
+                _rev: response.rev
+            }, function(deleteErr, deleteResponse) {
+                if (deleteErr) return console.log("removing test data... delete error!", deleteErr);
+
+            })
+        }
+    });
+}
+
+
+
+
 function missingReliefEffortDataTest(data, withOrWithout, test, number, remove) {
     dalNoSQL.createReliefEffort(data, function callback(err, response) {
         if (err) {
@@ -65,6 +118,28 @@ function missingReliefEffortDataTest(data, withOrWithout, test, number, remove) 
             if (remove) {
                 removeDoc(response);
             }
+        }
+    });
+}
+
+function missingReliefEffortDataRemoveTest(data, withOrWithout, test, number) {
+    dalNoSQL.deleteReliefEffort(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Success --> deleteReliefEffort() prevented me from deleting a relief effort ", withOrWithout, test, ". Message: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Fail --> deleteReliefEffort() allowed me to delete ", response.id, " from the database ", withOrWithout, test);
+        }
+    });
+}
+
+function missingReliefEffortDataUpdateTest(data, withOrWithout, test, number) {
+    dalNoSQL.updateReliefEffort(data, function callback(err, response) {
+        if (err) {
+            console.log("Test #", number, ": Success --> updateReliefEffort() prevented me from updating a relief effort", withOrWithout, test, ". Message: ", err.message);
+        }
+        if (response && response.ok === true) {
+            console.log("Test #", number, ": Fail --> updateReliefEffort() allowed me to update ", response.id, " from the database ", withOrWithout, test);
         }
     });
 }
@@ -94,16 +169,27 @@ function removeReliefEffortTest(data, number) {
     });
 }
 
-function missingReliefEffortDataRemoveTest(data, withOrWithout, test, number) {
-    dalNoSQL.deleteReliefEffort(data, function callback(err, response) {
+function updateReliefEffortTest(data, number) {
+    dalNoSQL.updateReliefEffort(data, function callback(err, response) {
         if (err) {
-            console.log("Test #", number, ": Success --> deleteReliefEffort() prevented me from adding a relief effort ", withOrWithout, test, ". Message: ", err.message);
+            console.log("Test #", number, ": Fail --> updateReliefEffort() was unable to update the relief effort: ", err.message);
         }
         if (response && response.ok === true) {
-            console.log("Test #", number, ": Fail --> deleteReliefEffort() allowed me to delete ", response.id, " to the database ", withOrWithout, test);
+            console.log("Test #", number, ": Success --> updateReliefEffort() updated the relief effort with an _id: ", data._id);
+            db.remove({
+                _id: response.id,
+                _rev: response.rev
+            }, function(deleteErr, deleteResponse) {
+                if (deleteErr) return console.log("removing test data... delete error!", deleteErr);
+
+            })
         }
     });
 }
+
+
+
+
 
 //////////////////
 // Test Library
@@ -272,13 +358,188 @@ function deleteReliefEffort() {
 }
 
 
+function deletePerson() {
+
+    const peoples = [{
+        firstName: "Monique",
+        lastName: "Martin",
+        phone: "404 357-2222",
+        email: "monique@gmail.com",
+        type: "person",
+        active: true
+    }, {
+        firstName: "Steve",
+        lastName: "Martin",
+        phone: "303 400-6000",
+        email: "wildandcrazyguy@gmail.com",
+        type: "person",
+        active: true
+    }];
+
+    db.bulkDocs(peoples, function(err, response) {
+        if (err) {
+            return console.log(err);
+        }
+        // handle result
+        if (response) {
+            //console.log(response)
+            missingPersonDataRemoveTest({
+                //_id: response[0].id,
+                _rev: response[0].rev
+            }, "without", "_id", 1)
+            missingPersonDataRemoveTest({
+                _id: response[0].id,
+                //_rev: response[0].rev
+            }, "without", "_rev", 2)
+            removePersonTest({
+                _id: response[0].id,
+                _rev: response[0].rev
+            }, 3)
+            removePersonTest({
+                _id: response[1].id,
+                _rev: response[1].rev
+            }, 4)
+        }
+    });
+}
+
+
+function updatePerson() {
+    const peoples = [{
+        _id: "person_debby@wahwaaah.com",
+        firstName: "Debby",
+        lastName: "Downer",
+        phone: "404 357-3416",
+        email: "debby@wahwaaah.com",
+        type: "person",
+        active: true
+    }, {
+        _id: "person_patjeffriesjr1987@gmail.com",
+        firstName: "Pat",
+        lastName: "Jeffries",
+        phone: "303 400-6000",
+        email: "patjeffriesjr1987@gmail.com",
+        type: "person",
+        active: true
+    }];
+
+    db.bulkDocs(peoples, function(err, response) {
+        if (err) {
+            return console.log(err);
+        }
+        // handle result
+        if (response) {
+            const debbyUpdateData = {
+                _rev: response[0].rev,
+                firstName: "Debby",
+                lastName: "Downer",
+                phone: "404 357-3416",
+                email: "debby@downer.com",
+                type: "person",
+                active: true
+            }
+
+            const patUpdateData = {
+                _id: response[1].id,
+                firstName: "Pat",
+                lastName: "Jeffries",
+                phone: "303 400-9999",
+                email: "patjeffriesjr1989@gmail.com",
+                type: "person",
+                active: true
+            }
+
+            missingPersonDataUpdateTest(debbyUpdateData,
+                "without",
+                "_id", 1)
+            missingPersonDataUpdateTest(patUpdateData,
+                "without",
+                "_rev",
+                2)
+
+            debbyUpdateData._id = response[0].id
+            patUpdateData._rev = response[1].rev
+            updatePersonTest(debbyUpdateData, 3)
+            updatePersonTest(patUpdateData, 4)
+        }
+    });
+}
+
+
+function updateReliefEffort() {
+    const reliefEfforts = [{
+        _id: "relief_St_Phillips_Kenya_2013",
+        type: "relief",
+        phase: "completed",
+        name: "Kenya 2013",
+        organizationID: "St. Phillips",
+        desc: "Build school in Kenya",
+        start: "2013-01-05",
+        end: "2013-02-15"
+    },{
+        _id: "relief_St_Phillips_Kenya_2012",
+        type: "relief",
+        phase: "completed",
+        name: "Kenya 2012",
+        organizationID: "St. Phillips",
+        desc: "Build school in Kenya",
+        start: "2012-01-05",
+        end: "2012-02-15"
+    }];
+
+    db.bulkDocs(reliefEfforts, function(err, response) {
+        if (err) {
+            return console.log(err);
+        }
+        // handle result
+        if (response) {
+
+            console.log("Adding test reliefEfforts: ", response)
+            const kenya2013Data = {
+                _rev: response[0].rev,
+                type: "relief",
+                phase: "completed",
+                name: "Kenya 2013",
+                organizationID: "St. Phillips",
+                desc: "Build school in Kenya",
+                start: "2013-01-22",
+                end: "2013-02-29"
+            }
+
+            const kenya2012Data ={
+                _id: response[1].id,
+                type: "relief",
+                phase: "completed",
+                name: "Kenya 2012",
+                organizationID: "St. Phillips",
+                desc: "Build school in Kenya",
+                start: "2012-01-05",
+                end: "2012-02-15"
+            }
+
+            missingReliefEffortDataUpdateTest(kenya2013Data,
+                "without",
+                "_id", 1)
+            missingReliefEffortDataUpdateTest(kenya2012Data,
+                "without",
+                "_rev",
+                2)
+
+            kenya2013Data._id = response[0].id
+            kenya2012Data._rev = response[1].rev
+            updateReliefEffortTest(kenya2013Data, 3)
+            updateReliefEffortTest(kenya2012Data, 4)
+        }
+    });
+}
 
 var testLibrary = {
     createPerson: createPerson,
+    updatePerson: updatePerson,
+    deletePerson: deletePerson,
     createReliefEffort: createReliefEffort,
+    updateReliefEffort: updateReliefEffort,
     deleteReliefEffort: deleteReliefEffort
-    // ,
-    // deletePerson: deletePerson
 };
 
 module.exports = testLibrary;

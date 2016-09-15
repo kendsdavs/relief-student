@@ -67,6 +67,21 @@ function createPerson(data, callback) {
     }
 }
 
+function updateDoc(data, callback) {
+    // Call to couch retrieving a document with the given _id value.
+    if (typeof data == "undefined" || data === null) {
+        return callback(new Error('Missing data for update'));
+    } else if (data.hasOwnProperty('_id') !== true) {
+        return callback(new Error('Missing _id property from data'));
+    } else if (data.hasOwnProperty('_rev') !== true) {
+        return callback(new Error('Missing _rev property from data'));
+    } else {
+        db.put(data, function(err, response) {
+            if (err) return callback(err);
+            if (response) return callback(null, response);
+        });
+    }
+}
 
 function createReliefEffort(data, callback) {
     // Call to couch retrieving a document with the given _id value.
@@ -97,7 +112,6 @@ function createReliefEffort(data, callback) {
     }
 }
 
-
 function deletePerson(data, callback) {
     deleteDoc(data, callback);
 }
@@ -106,11 +120,22 @@ function deleteReliefEffort(data, callback) {
     deleteDoc(data, callback);
 }
 
+function updatePerson(data, callback) {
+    updateDoc(data, callback);
+}
+
+function updateReliefEffort(data, callback) {
+    updateDoc(data, callback);
+}
+
+
 var dal = {
     getDBInfo: getDBInfo,
     createPerson: createPerson,
-    createReliefEffort: createReliefEffort,
+    updatePerson: updatePerson,
     deletePerson: deletePerson,
+    createReliefEffort: createReliefEffort,
+    updateReliefEffort: updateReliefEffort,
     deleteReliefEffort: deleteReliefEffort
 };
 

@@ -22,29 +22,29 @@ const personDataJimmy = {
 };
 
 const personDataTom = {
-    type: "person",
     firstName: "Tom",
     lastName: "Jefferson",
-    phone: "843 444-4444"
+    phone: "843 444-4444",
+    email: "TJ@dentalone.com",
+    type: "person",
+    active: true
 };
-
-//email: "TJ@dentalone.com"
 
 const personDataWyatt = {
     firstName: "Wyatt",
     lastName: "Johnston",
-    phone: "843 222-1212"
+    phone: "843 222-1212",
+    email: "WyattJ1111@gmail.com",
+    type: "person",
+    active: true
 };
-// "email": "WyattJ1111@gmail.com"
 
 const personDataGary = {
-    _id: "person_gary.johnson1971@gmail.com",
-    _rev: "6-5345c34a6c31b82fe34ae2880dc33736",
-    type: "person",
     firstName: "Gary",
     lastName: "Johnson",
     phone: "843 555-9876",
     email: "gary.johnson1971@gmail.com",
+    type: "person",
     active: true
 };
 
@@ -53,20 +53,24 @@ const personDataJudy = {
     lastName: "Jones",
     phone: "843 555-5555",
     email: "judy5555@aol.com",
+    type: "person",
+    active: true
 };
 
 const personDataLibby = {
-    type: "person",
     firstName: "Libby",
     lastName: "Satterfield",
     phone: "843 888-8438",
     email: "lsat1972@gmail.com",
+    type: "person",
+    active: true
 };
 
 const personDataSteve = {
-    type: "person",
     firstName: "Steve",
     lastName: "Ananias",
     phone: "843 555-1515",
-    email: "stevean@duke.edu"
+    email: "stevean@duke.edu",
+    type: "person",
+    active: true
 };
