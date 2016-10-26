@@ -7,7 +7,7 @@
 //  and run the following command:
 // $ NODE_ENV=production node addPerson.js
 
-const dalNoSQL = require('./DAL/noSQL.js');
+const dalNoSQL = require('./DAL/no-sql.js');
 
 // person data. Use to test the createPerson() function within your DAL,
 // Make INDIVIDUAL calls to the createPerson() function within your DAL
