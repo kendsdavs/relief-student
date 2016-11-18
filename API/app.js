@@ -203,9 +203,9 @@ app.delete('/reliefefforts/:id', function(req, res, next) {
     })
 })
 app.get('/persons', function(req, res, next) {
-    //const sortByParam = req.query.sortby || 'lastname';
+    const sortByParam = req.query.sortby || 'lastname';
     //const sortBy = getReliefEffortSortBy(sortByParam, dalModule);
-    //const sortBy = sortByParam
+    const sortBy = sortByParam
     const sortToken = req.query.sorttoken || '';
     const limit = req.query.limit || 5;
 
